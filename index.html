@@ -10,23 +10,64 @@
 
     <script>
 
-        // 1. Create a function that will either return Rock, Paper or Scissor.
+        let playerScore = 0;
+        let computerScore = 0;
+        
 
-        function getComputerChoice(){
+        // 1. Function that will randomly return Rock, Paper or Scissor as Computer's Choice.
 
-            const randomNumber = Math.floor(Math.random() * 3) + 1;
+        function getComputerChoice() {
+            let randomNumber = Math.floor(Math.random() * 3)
+            
+            switch(randomNumber) {
+                case 0:
+                    return 'rock'
+                    break
+                case 1:
+                    return 'paper'
+                    break
+                case 2:
+                    return 'scissors'
+                    break
+            }
+        }
+        
 
-            if (randomNumber == 1) {
-                console.log(`rock`);
-            } else if (randomNumber == 2) {
-                console.log(`paper`);
-            } else {
-                console.log(`scissors`);
+        // 2. Write a function that will play single round of the game with 2 parameters on it, playerSelection and computerSelection. (Make sure that the string passed is not case sensitive).
+        
+        function playRound(playerSelection, computerSelection) {
+
+            playerSelection = prompt(`What's your pick?`).toLowerCase();
+
+            if (playerSelection == computerSelection) {
+                return(`It's a tie!`);
+            } else if (
+                playerSelection == `rock` && computerSelection == `scissors` || 
+                playerSelection == `paper` && computerSelection == `rock` || 
+                playerSelection == `scissors` && computerSelection == `paper`) {
+                console.log(`You win!`);
+                playerScore++;
+            } else if (
+                computerSelection == `rock` && playerSelection == `scissors` || 
+                computerSelection == `paper` && playerSelection == `rock` || 
+                computerSelection == `scissors` && playerSelection == `paper`) {
+                console.log(`You lose!`);
+                computerScore++;
             }
         }
 
-        // 2. Write a function that will play single round of the game with 2 parameters on it, playerSelection and computerSelection. (Make sure that the string passed is not case sensitive).
+        let playerSelection = '';
+        let computerSelection = getComputerChoice();
+
         // 3. Create a function that will reports the winner or loser at the end of the game.
+
+        function game() {
+            for (let i = 1; i <= 5; i++) {
+                console.log(playRound(playerSelection, computerSelection));
+                console.log(playerScore);
+                console.log(computerScore);
+            }
+        }
 
     </script>
     
