@@ -9,7 +9,25 @@
 <body>
 
     <script>
-        
+
+        // 1. Create a function that will either return Rock, Paper or Scissor.
+
+        function getComputerChoice(){
+
+            const randomNumber = Math.floor(Math.random() * 3) + 1;
+
+            if (randomNumber == 1) {
+                console.log(`rock`);
+            } else if (randomNumber == 2) {
+                console.log(`paper`);
+            } else {
+                console.log(`scissors`);
+            }
+        }
+
+        // 2. Write a function that will play single round of the game with 2 parameters on it, playerSelection and computerSelection. (Make sure that the string passed is not case sensitive).
+        // 3. Create a function that will reports the winner or loser at the end of the game.
+
     </script>
     
 </body>
