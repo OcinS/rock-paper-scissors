@@ -45,13 +45,13 @@
                 playerSelection == `rock` && computerSelection == `scissors` || 
                 playerSelection == `paper` && computerSelection == `rock` || 
                 playerSelection == `scissors` && computerSelection == `paper`) {
-                console.log(`You win!`);
+                console.log(`You win the Round!`);
                 playerScore++;
             } else if (
                 computerSelection == `rock` && playerSelection == `scissors` || 
                 computerSelection == `paper` && playerSelection == `rock` || 
                 computerSelection == `scissors` && playerSelection == `paper`) {
-                console.log(`You lose!`);
+                console.log(`You lose the Round!`);
                 computerScore++;
             }
         }
@@ -66,6 +66,14 @@
                 console.log(playRound(playerSelection, computerSelection));
                 console.log(playerScore);
                 console.log(computerScore);
+            }
+
+            if (playerScore == computerScore) {
+                console.log(`The Game is Tie!`);
+            } else if (playerScore > computerScore) {
+                console.log(`You win the Game!`);
+            } else if (playerScore < computerScore) {
+                console.log(`You lose the Game!`);
             }
         }
 
