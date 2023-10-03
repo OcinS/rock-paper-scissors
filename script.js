@@ -1,13 +1,153 @@
-// Assign a blank value that will be updated as soon as the round plays.
-let playerSelection = '';
+const main = document.querySelector(`main`);
+const introduction = document.querySelector('.introduction.container');
+const startButton = document.querySelector(`#start-btn`);
 
 
-// Assign the scores of Computer and Player with 0 as this will be incremented depending on the round result.
+
 let playerScore = 0;
 let computerScore = 0;
+let playerSelection = '';
+let resultMessage = '';
 
 
-// Return the choice of the computer randomly either rock, paper or scissor.
+
+startButton.addEventListener(`click`, () => {
+
+    introduction.remove();
+
+    const container  = document.createElement(`div`);
+    container.className = `container`;
+
+    main.appendChild(container);
+
+
+        const gameEnvironmentSection = document.createElement(`section`);
+        gameEnvironmentSection.setAttribute(`id`,`game-environment`);
+
+        container.appendChild(gameEnvironmentSection);
+
+
+            const gameContainer = document.createElement(`div`);
+            gameContainer.className = `game-container`;
+
+            gameEnvironmentSection.appendChild(gameContainer);
+
+
+                const gameHeader = document.createElement(`div`);
+                gameHeader.className = `game-header`;
+
+                    const gameTitle = document.createElement(`h1`);
+                    gameTitle.className = `game-title`;
+                    gameTitle.textContent = `Rock, Paper or Scissor`
+                    
+                    gameHeader.appendChild(gameTitle);
+
+
+                const selectionCards = document.createElement(`div`);
+                selectionCards.className = `selection cards`;
+
+                    const card1 = document.createElement(`div`);
+                    card1.className = `card`;
+
+                        const cardImage1 = document.createElement(`img`);
+                        cardImage1.src = `./images/rock-illustration.png`;
+                        cardImage1.alt = `rock`;
+
+                        const cardButton1 = document.createElement(`button`);
+                        cardButton1.className = `rock selection btn`;
+                        cardButton1.textContent = `Rock`;
+
+                        card1.append(cardImage1,cardButton1);
+
+                    
+                    const card2 = document.createElement(`div`);
+                    card2.className = `card`;
+
+                        const cardImage2 = document.createElement(`img`);
+                        cardImage2.src = `./images/paper-illustration.png`;
+                        cardImage2.alt = `paper`;
+
+                        const cardButton2 = document.createElement(`button`);
+                        cardButton2.className = `paper selection btn`;
+                        cardButton2.textContent = `Paper`;
+
+                        card2.append(cardImage2,cardButton2);
+
+
+                    const card3 = document.createElement(`div`);
+                    card3.className = `card`;
+                    
+                        const cardImage3 = document.createElement(`img`);
+                        cardImage3.src = `./images/scissor-illustration.jpg`;
+                        cardImage3.alt = `scissor`;
+
+                        const cardButton3 = document.createElement(`button`);
+                        cardButton3.className = `scissor selection btn`;
+                        cardButton3.textContent = `Scissor`;
+
+                        card3.append(cardImage3,cardButton3);
+
+                    
+                    selectionCards.append(card1,card2,card3);
+
+
+                const selectionOutput = document.createElement(`div`);
+                selectionOutput.className = `selection output`;
+
+                    const playerSelectionOutput = document.createElement(`p`);
+                    playerSelectionOutput.textContent = `You select: ${playerSelection}`;
+
+                    const roundResult = document.createElement(`p`);
+                    roundResult.className = `round-result`;
+                    roundResult.textContent = `${resultMessage}`;
+
+                    selectionOutput.append(playerSelectionOutput,roundResult)
+
+
+                const scoreBoard = document.createElement(`div`);
+                scoreBoard.className = `scoreboard`;
+
+                    const playerScoreBoard = document.createElement(`div`);
+                    playerScoreBoard.className = `playerscore`;
+
+                        const score1 = document.createElement(`p`);
+                        score1.textContent = `${playerScore}`;
+
+                        const scoredescription1 = document.createElement(`p`);
+                        scoredescription1.textContent = `Player Score`;
+
+                        playerScoreBoard.append(score1, scoredescription1);
+
+                    const computerScoreBoard = document.createElement(`div`);
+                    computerScoreBoard.className = `computerscore`;
+
+                        const score2 = document.createElement(`p`);
+                        score2.textContent = `${computerScore}`;
+
+                        const scoredescription2 = document.createElement(`p`);
+                        scoredescription2.textContent = `Computer Score`;
+
+                        computerScoreBoard.append(score2, scoredescription2);
+
+                    scoreBoard.append(playerScoreBoard,computerScoreBoard);
+
+
+                const startRound = document.createElement(`button`);
+                startRound.className = `btn`;
+                startRound.setAttribute(`id`,`start-round`);
+                startRound.textContent = `Start Round`
+
+
+                gameContainer.append(gameHeader,selectionCards,selectionOutput,scoreBoard,startRound)
+
+    const selectionButtons = document.querySelectorAll(`.selection.btn`);
+    selectionButtons.forEach(function(selectionButton) {
+        selectionButton.addEventListener("click", function() {
+          playerSelection = selectionButton.textContent;
+        });
+      });
+}); 
+
 function getComputerChoice() {
 
     let randomNumber = Math.floor(Math.random() * 3);
@@ -26,7 +166,19 @@ function getComputerChoice() {
 }
 
 
-// Get the Player's selection and decide whoever wins the Round. Once the winner of the round has been indentified the score will be incremented.
+
+
+
+
+
+
+
+
+
+
+
+
+
 function playRound(playerSelection, computerSelection) {
 
     playerSelection = prompt(`What's your pick? Rock, Paper or Scissor?`).toLowerCase();
