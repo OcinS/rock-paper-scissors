@@ -10,7 +10,6 @@ let playerSelection = '';
 let resultMessage = '';
 
 
-
 startButton.addEventListener(`click`, () => {
 
     introduction.remove();
@@ -140,12 +139,12 @@ startButton.addEventListener(`click`, () => {
 
                 gameContainer.append(gameHeader,selectionCards,selectionOutput,scoreBoard,startRound)
 
-    const selectionButtons = document.querySelectorAll(`.selection.btn`);
+    let selectionButtons = document.querySelectorAll(`.selection.btn`); 
     selectionButtons.forEach(function(selectionButton) {
         selectionButton.addEventListener("click", function() {
-          playerSelection = selectionButton.textContent;
+          playerSelection = selectionButton.textContent.toLowerCase();
         });
-      });
+    });
 }); 
 
 function getComputerChoice() {
