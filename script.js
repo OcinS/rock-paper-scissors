@@ -7,6 +7,7 @@ const startButton = document.querySelector(`#start-btn`);
 let playerScore = 0;
 let computerScore = 0;
 let playerSelection = '';
+let computerSelection = getComputerChoice(); 
 let resultMessage = '';
 
 
@@ -93,12 +94,12 @@ startButton.addEventListener(`click`, () => {
                 const selectionOutput = document.createElement(`div`);
                 selectionOutput.className = `selection output`;
 
-                    const playerSelectionOutput = document.createElement(`p`);
-                    playerSelectionOutput.textContent = `You select: ${playerSelection}`;
+                    let playerSelectionOutput = document.createElement(`p`);
+                    playerSelectionOutput.textContent = ``;
 
                     const roundResult = document.createElement(`p`);
                     roundResult.className = `round-result`;
-                    roundResult.textContent = `${resultMessage}`;
+                    roundResult.textContent = ``;
 
                     selectionOutput.append(playerSelectionOutput,roundResult)
 
@@ -143,6 +144,7 @@ startButton.addEventListener(`click`, () => {
     selectionButtons.forEach(function(selectionButton) {
         selectionButton.addEventListener("click", function() {
           playerSelection = selectionButton.textContent.toLowerCase();
+          playerSelectionOutput.textContent = `You select: ${playerSelection.toUpperCase()}`;
         });
     });
 }); 
@@ -163,8 +165,6 @@ function getComputerChoice() {
             break;
     }
 }
-
-
 
 
 
