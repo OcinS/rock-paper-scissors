@@ -1,38 +1,40 @@
+// Query variables present in the introduction
 const main = document.querySelector(`main`);
 const introduction = document.querySelector('.introduction.container');
 const startButton = document.querySelector(`#start-btn`);
 
 
-
+// Variables for the game
 let playerScore = 0;
 let computerScore = 0;
 let playerSelection = '';
-let computerSelection = getComputerChoice(); 
+let computerSelection = '';
 let resultMessage = '';
 
-
+// Function to Start the Game
 startButton.addEventListener(`click`, () => {
 
     introduction.remove();
 
+    // Create the container for wrapper and append to the Main
     const container  = document.createElement(`div`);
     container.className = `container`;
 
-    main.appendChild(container);
+    main.insertBefore(container, main.children[0]);
 
-
+        // Create a section tag and append to the container
         const gameEnvironmentSection = document.createElement(`section`);
         gameEnvironmentSection.setAttribute(`id`,`game-environment`);
 
         container.appendChild(gameEnvironmentSection);
 
-
+            // Container for the Game Proper and append to Game Section
             const gameContainer = document.createElement(`div`);
             gameContainer.className = `game-container`;
 
             gameEnvironmentSection.appendChild(gameContainer);
 
-
+                // Div that contains the Header of the Game
                 const gameHeader = document.createElement(`div`);
                 gameHeader.className = `game-header`;
 
@@ -42,7 +44,7 @@ startButton.addEventListener(`click`, () => {
                     
                     gameHeader.appendChild(gameTitle);
 
-
+                // Div that contains the Cards for the selection
                 const selectionCards = document.createElement(`div`);
                 selectionCards.className = `selection cards`;
 
@@ -90,20 +92,20 @@ startButton.addEventListener(`click`, () => {
                     
                     selectionCards.append(card1,card2,card3);
 
-
+                // Div that contains the Selection of Player and Result Message of every Round
                 const selectionOutput = document.createElement(`div`);
                 selectionOutput.className = `selection output`;
 
                     let playerSelectionOutput = document.createElement(`p`);
                     playerSelectionOutput.textContent = ``;
 
-                    const roundResult = document.createElement(`p`);
+                    let roundResult = document.createElement(`p`);
                     roundResult.className = `round-result`;
                     roundResult.textContent = ``;
 
                     selectionOutput.append(playerSelectionOutput,roundResult)
 
-
+                // Div that contains the Score Board for the Player and Computer
                 const scoreBoard = document.createElement(`div`);
                 scoreBoard.className = `scoreboard`;
 
@@ -131,15 +133,16 @@ startButton.addEventListener(`click`, () => {
 
                     scoreBoard.append(playerScoreBoard,computerScoreBoard);
 
-
+                // Button to start every round
                 const startRound = document.createElement(`button`);
                 startRound.className = `btn`;
                 startRound.setAttribute(`id`,`start-round`);
                 startRound.textContent = `Start Round`
 
-
+                // Append the divs of Game Header, Selection Cards, Selection Output, Score Board and Start Round Button
                 gameContainer.append(gameHeader,selectionCards,selectionOutput,scoreBoard,startRound)
 
+    // Update the Player selection based from the selection of buttons
     let selectionButtons = document.querySelectorAll(`.selection.btn`); 
     selectionButtons.forEach(function(selectionButton) {
         selectionButton.addEventListener("click", function() {
@@ -147,8 +150,56 @@ startButton.addEventListener(`click`, () => {
           playerSelectionOutput.textContent = `You select: ${playerSelection.toUpperCase()}`;
         });
     });
+
+    // Also update the Player selection based from the selection of images (in case they choose to click the images)
+    let selectionImages = document.querySelectorAll(`.card > img`); 
+    selectionImages.forEach(function(selectionImage) {
+        selectionImage.addEventListener("click", function() {
+          playerSelection = selectionImage.alt;
+          playerSelectionOutput.textContent = `You select: ${playerSelection.toUpperCase()}`;
+        });
+    });
+
+    // Play a Round and update specific variables once run
+    function playRound(playerSelection, computerSelection) {
+
+        if (playerSelection == computerSelection) {
+            resultMessage = `It's a tie! No one get a score.`;
+            roundResult.style.color = `orange`;
+            roundResult.textContent = `${resultMessage}`;
+        } else if (
+            playerSelection == `rock` && computerSelection == `scissor` || 
+            playerSelection == `paper` && computerSelection == `rock` || 
+            playerSelection == `scissor` && computerSelection == `paper`) {
+            playerScore++;
+            score1.textContent = `${playerScore}`;
+            resultMessage = `You win the Round!`;
+            roundResult.style.color = `var(--playerColor)`;
+            roundResult.textContent = `${resultMessage}`;
+        } else if (
+            computerSelection == `rock` && playerSelection == `scissor` || 
+            computerSelection == `paper` && playerSelection == `rock` || 
+            computerSelection == `scissor` && playerSelection == `paper`) {
+            computerScore++;
+            roundResult.style.color = `var(--playerColor)`;
+            score2.textContent = `${computerScore}`;
+            resultMessage = `Computer wins the Round!`;
+            roundResult.style.color = `var(--computerColor)`;
+            roundResult.textContent = `${resultMessage}`;
+        }
+    }
+
+    // Click button function to play every round
+    startRound.addEventListener(`click`, () => {
+        computerSelection = getComputerChoice(); 
+        playRound(playerSelection, computerSelection)
+        winnerChecker();
+    });
+
 }); 
 
+
+// Function to select Computer's Choice randomly
 function getComputerChoice() {
 
     let randomNumber = Math.floor(Math.random() * 3);
@@ -167,63 +218,14 @@ function getComputerChoice() {
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-function playRound(playerSelection, computerSelection) {
-
-    playerSelection = prompt(`What's your pick? Rock, Paper or Scissor?`).toLowerCase();
-
-    console.log(`Player Selection: ${playerSelection}`);
-
-    if (playerSelection == computerSelection) {
-        return `It's a tie!`;
-    } else if (
-        playerSelection == `rock` && computerSelection == `scissor` || 
-        playerSelection == `paper` && computerSelection == `rock` || 
-        playerSelection == `scissor` && computerSelection == `paper`) {
-        playerScore++;
-        return `You win the Round!`;
-        
-    } else if (
-        computerSelection == `rock` && playerSelection == `scissor` || 
-        computerSelection == `paper` && playerSelection == `rock` || 
-        computerSelection == `scissor` && playerSelection == `paper`) {
-        computerScore++;
-        return `Computer wins the Round!`;
-        
-    }
-}
-
-
 // Check whoever wins the game
 function winnerChecker() {
-        if (playerScore == computerScore) {
-            return `The Game is Tie!`;
-        } else if (playerScore > computerScore) {
-            return `You win the Game!`;
-        } else if (playerScore < computerScore) {
-            return `You lose the Game!`;
+        if (playerScore == 5) {
+            alert(`You Win the Game`);
+            location.reload();
         }
-}
-
-
-// Function that will start the whole game of Rock, Paper & Scissor for 5 rounds.
-function game() {
-    for (let i = 1; i <= 5; i++) {
-        let computerSelection = getComputerChoice();                        //Assign the return value from getComputerChoice
-        console.log(`Computer Selection: ${computerSelection}`);            //Console log the Computer Selection
-        console.log(playRound(playerSelection, computerSelection));         //Console log the Player Selection and the Winner of the Round
-        console.log(`Computer Score: ${computerScore}`);                    //Console log the Computer Score
-        console.log(`Player Score: ${playerScore}`);                        //Console log the Player Score
-    }
-    console.log(winnerChecker());                                           //Console log the Winner of the Game
+        if (computerScore == 5) {
+            alert(`Computer Wins the Game`);
+            location.reload();
+        }
 }
