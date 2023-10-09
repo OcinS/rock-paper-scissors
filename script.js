@@ -97,13 +97,16 @@ startButton.addEventListener(`click`, () => {
                 selectionOutput.className = `selection output`;
 
                     let playerSelectionOutput = document.createElement(`p`);
-                    playerSelectionOutput.textContent = ``;
+                    playerSelectionOutput.textContent = `You select:`;
+
+                    let computerSelectionOutput = document.createElement(`p`);
+                    computerSelectionOutput.textContent = `Computer select:`;
 
                     let roundResult = document.createElement(`p`);
                     roundResult.className = `round-result`;
                     roundResult.textContent = ``;
 
-                    selectionOutput.append(playerSelectionOutput,roundResult)
+                    selectionOutput.append(playerSelectionOutput,computerSelectionOutput,roundResult)
 
                 // Div that contains the Score Board for the Player and Computer
                 const scoreBoard = document.createElement(`div`);
@@ -167,6 +170,7 @@ startButton.addEventListener(`click`, () => {
             resultMessage = `It's a tie! No one get a score.`;
             roundResult.style.color = `orange`;
             roundResult.textContent = `${resultMessage}`;
+            computerSelectionOutput.textContent = `Computer select: ${computerSelection.toUpperCase()}`;
         } else if (
             playerSelection == `rock` && computerSelection == `scissor` || 
             playerSelection == `paper` && computerSelection == `rock` || 
@@ -176,6 +180,7 @@ startButton.addEventListener(`click`, () => {
             resultMessage = `You win the Round!`;
             roundResult.style.color = `var(--playerColor)`;
             roundResult.textContent = `${resultMessage}`;
+            computerSelectionOutput.textContent = `Computer select: ${computerSelection.toUpperCase()}`;
         } else if (
             computerSelection == `rock` && playerSelection == `scissor` || 
             computerSelection == `paper` && playerSelection == `rock` || 
@@ -186,6 +191,7 @@ startButton.addEventListener(`click`, () => {
             resultMessage = `Computer wins the Round!`;
             roundResult.style.color = `var(--computerColor)`;
             roundResult.textContent = `${resultMessage}`;
+            computerSelectionOutput.textContent = `Computer select: ${computerSelection.toUpperCase()}`;
         }
     }
 
